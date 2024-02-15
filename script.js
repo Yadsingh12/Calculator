@@ -71,7 +71,8 @@ equal.addEventListener("click", () => {
     let result = operands[i];
     i++;
     for (let operator in operators) {
-        result += operate(result, operands[i], operators[operator]);
+        result = operate(result, operands[i], operators[operator]);
+        i++;
         console.log(result);
     }
     dis.textContent = result;
