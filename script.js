@@ -29,4 +29,19 @@ const operate = function (operand1, operand2, operator) {
     return result;
 }
 let operand1 = null, operand2 = null, operator = null;
-console.log (operate(3,4,"*"));
+//console.log (operate(3,4,"*"));
+const dis = document.querySelector('#display');
+
+const digit = document.querySelectorAll(".digit");
+digit.forEach((element)=> {
+    element.addEventListener("click",()=> {
+        dis.textContent += element.textContent;
+    })
+});
+
+const op = document.querySelectorAll(".operator");
+op.forEach((element)=> {
+    element.addEventListener("click",()=> {
+        dis.textContent += element.textContent;
+    })
+});
