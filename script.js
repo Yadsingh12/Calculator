@@ -1,32 +1,32 @@
-const addition = function(a,b) {
-    return (a+b);
+const addition = function (a, b) {
+    return a + b;
 }
-const subtraction = function(a,b) {
-    return addition(a,-b);
+const subtraction = function (a, b) {
+    return addition(a, -b);
 }
-const multiply = function(a,b) {
-    return a*b;
+const multiply = function (a, b) {
+    return a * b;
 }
-const divide = function(a,b) {
-    return (a/b);
+const divide = function (a, b) {
+    return a / b;
 }
-const operate = function(operand1, operand2, operator) {
+const operate = function (operand1, operand2, operator) {
     let result;
-    switch(operator){
+    switch (operator) {
         case "+":
-            result=addition(operand1, operand2);
+            result = addition(operand1, operand2);
             break;
         case "-":
-            result=subtraction(operand1, operand2);
+            result = subtraction(operand1, operand2);
             break;
         case "*":
-            result=multiply(operand1, operand2);
+            result = multiply(operand1, operand2);
             break;
         case "/":
-            result=divide(operand1, operand2);
+            result = divide(operand1, operand2);
             break;
     }
     return result;
 }
-let operand1, operand2, operator;
+let operand1 = null, operand2 = null, operator = null;
 console.log (operate(3,4,"*"));
