@@ -28,30 +28,48 @@ const operate = function (operand1, operand2, operator) {
     }
     return result;
 }
-let operand1 = null, operand2 = null, operator = null;
-//console.log (operate(3,4,"*"));
+
 const dis = document.querySelector('#display');
 
 const digit = document.querySelectorAll(".digit");
 const op = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
 
-digit.forEach((element)=> {
-    element.addEventListener("click",()=> {
+digit.forEach((element) => {
+    element.addEventListener("click", () => {
         dis.textContent += element.textContent;
-        op.forEach((element)=>{
+        op.forEach((element) => {
             element.disabled = false;
         })
         equal.disabled = false;
     })
 });
 
-op.forEach((element)=> {
-    element.addEventListener("click",()=> {
+op.forEach((element) => {
+    element.addEventListener("click", () => {
         dis.textContent += element.textContent;
-        op.forEach((element)=>{
+        op.forEach((element) => {
             element.disabled = true;
         })
         equal.disabled = true;
     })
+});
+
+equal.addEventListener("click", () => {
+    let exp = dis.textContent;
+    const operands = exp.split(/[+-/*]+/);
+    for (let operand in operands) {
+        operands[operand] = Number(operands[operand]);
+    }
+    console.log(operands);
+    const operators = exp.replace(/[0-9]/g, "").split("");
+    console.log(operators);
+    i = 0;
+    let result = operands[i];
+    i++;
+    for (let operator in operators) {
+        result += operate(result, operands[i], operators[operator]);
+        console.log(result);
+    }
+    dis.textContent = result;
 });
