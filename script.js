@@ -10,3 +10,4 @@ const multiply = function(a,b) {
 const divide = function(a,b) {
     return (a/b);
 }
+let operand1, operand2, operator;
