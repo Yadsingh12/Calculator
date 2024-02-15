@@ -34,6 +34,7 @@ const dis = document.querySelector('#display');
 
 const digit = document.querySelectorAll(".digit");
 const op = document.querySelectorAll(".operator");
+const equal = document.querySelector("#equal");
 
 digit.forEach((element)=> {
     element.addEventListener("click",()=> {
@@ -41,6 +42,7 @@ digit.forEach((element)=> {
         op.forEach((element)=>{
             element.disabled = false;
         })
+        equal.disabled = false;
     })
 });
 
@@ -50,5 +52,6 @@ op.forEach((element)=> {
         op.forEach((element)=>{
             element.disabled = true;
         })
+        equal.disabled = true;
     })
 });
