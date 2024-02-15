@@ -34,6 +34,7 @@ const dis = document.querySelector('#display');
 const digit = document.querySelectorAll(".digit");
 const op = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
+const clear = document.querySelector("#clear");
 
 digit.forEach((element) => {
     element.addEventListener("click", () => {
@@ -54,6 +55,8 @@ op.forEach((element) => {
         equal.disabled = true;
     })
 });
+
+clear.addEventListener("click", () => (dis.textContent = "0"))
 
 equal.addEventListener("click", () => {
     let exp = dis.textContent;
