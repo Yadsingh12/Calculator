@@ -33,15 +33,22 @@ let operand1 = null, operand2 = null, operator = null;
 const dis = document.querySelector('#display');
 
 const digit = document.querySelectorAll(".digit");
+const op = document.querySelectorAll(".operator");
+
 digit.forEach((element)=> {
     element.addEventListener("click",()=> {
         dis.textContent += element.textContent;
+        op.forEach((element)=>{
+            element.disabled = false;
+        })
     })
 });
 
-const op = document.querySelectorAll(".operator");
 op.forEach((element)=> {
     element.addEventListener("click",()=> {
         dis.textContent += element.textContent;
+        op.forEach((element)=>{
+            element.disabled = true;
+        })
     })
 });
