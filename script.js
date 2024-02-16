@@ -36,6 +36,7 @@ const op = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
 const clear = document.querySelector("#clear");
 const dot = document.querySelector('#dot');
+const backspace = document.querySelector('#backspace');
 
 digit.forEach((element) => {
     element.addEventListener("click", () => {
@@ -62,6 +63,40 @@ op.forEach((element) => {
         dot.disabled = false;
     })
 });
+
+backspace.addEventListener("click", () => {
+    const operators = "-/+*";
+    const Dot = ".";
+    if (operators.includes(dis.textContent.at(-1))) {
+        op.forEach((element) => {
+            element.disabled = false;
+        })
+        equal.disabled = false;
+    }
+    else if (dis.textContent.at(-1) == '.') {
+        console.log(7);
+        dot.disabled = false;
+    }
+
+    dis.textContent = dis.textContent.slice(0, -1);
+
+    if (operators.includes(dis.textContent.at(-1))) {
+        op.forEach((element) => {
+            element.disabled = true;
+        })
+        equal.disabled = true;
+        dot.disabled = false;
+    } else {
+        if (
+            dis.textContent.lastIndexOf(".") > dis.textContent.lastIndexOf("+")
+            && dis.textContent.lastIndexOf(".") > dis.textContent.lastIndexOf("-")
+            && dis.textContent.lastIndexOf(".") > dis.textContent.lastIndexOf("*")
+            && dis.textContent.lastIndexOf(".") > dis.textContent.lastIndexOf("/")
+        ) {
+            dot.disabled = true;
+        }
+    }
+})
 
 clear.addEventListener("click", () => {
     dis.textContent = "0";
@@ -91,7 +126,7 @@ equal.addEventListener("click", () => {
     for (let operator in operators) {
         result = +parseFloat(operate(result, operands[i], operators[operator])).toFixed(3);
         if (isNaN(result) || !isFinite(result)) {
-            alert("Divide by zero is not allowed");
+            alert("Dividing by zero is not allowed");
             return;
         }
         i++;
