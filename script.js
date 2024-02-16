@@ -63,14 +63,14 @@ const operandFunction = function (operand) {
     equal.disabled = false;
 }
 
-const backpaceFunction = function () {
+const backspaceFunction = function () {
     const operators = "-/+*";
     const Dot = ".";
     if (operators.includes(dis.textContent.at(-1))) {
         changeOperatorsState(false);
         equal.disabled = false;
     }
-    else if (dis.textContent.at(-1) == '.') {
+    else if (dis.textContent.at(-1) === '.') {
         dot.disabled = false;
     }
 
@@ -91,7 +91,7 @@ const backpaceFunction = function () {
         }
     }
 
-    if (dis.textContent.length == 0 || dis.textContent.length == 1) dis.textContent = "0";
+    if (dis.textContent.length == 0) dis.textContent = "0";
 }
 
 const equalFunction = function () {
@@ -100,9 +100,9 @@ const equalFunction = function () {
     for (let operand in operands) {
         operands[operand] = Number(operands[operand]);
     }
-
+    console.log(operands);
     const operators = exp.replace(/[0-9]/g, "").replace(/[.]/g, "").split("");
-
+    console.log(operators);
     i = 0;
     let result = operands[i];
     i++;
@@ -123,13 +123,13 @@ digit.forEach((element) => {
     element.addEventListener("click", () => { operandFunction(element.textContent); });
 });
 
-dot.addEventListener("click", dotFunction());
+dot.addEventListener("click", () => {dotFunction();});
 
 op.forEach((element) => {
     element.addEventListener("click", () => { operatorFunction(element.textContent); });
 });
 
-backspace.addEventListener("click", () => {backpaceFunction();});
+backspace.addEventListener("click", () => {backspaceFunction();});
 
 equal.addEventListener("click", () => {equalFunction();});
 
@@ -141,4 +141,20 @@ clear.addEventListener("click", () => {
     })
     equal.disabled = false;
     console.clear();
+})
+
+document.addEventListener("keydown", (event) => {
+    const operands = "123456789";
+    const operators = "-+/*";
+    if (operands.includes(event.key)) {
+        operandFunction(event.key);
+    } else if (operators.includes(event.key) && op[0].disabled == false) {
+        operatorFunction(event.key);
+    } else if (event.key === "." && dot.disabled == false) {
+        dotFunction();
+    } else if (event.key === "Backspace") {
+        backspaceFunction();
+    } else if (event.key === "=" && equal.disabled == false) {
+        equalFunction();
+    }
 })
