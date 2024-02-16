@@ -35,6 +35,7 @@ const digit = document.querySelectorAll(".digit");
 const op = document.querySelectorAll(".operator");
 const equal = document.querySelector("#equal");
 const clear = document.querySelector("#clear");
+const dot = document.querySelector('#dot');
 
 digit.forEach((element) => {
     element.addEventListener("click", () => {
@@ -46,6 +47,11 @@ digit.forEach((element) => {
     })
 });
 
+dot.addEventListener("click", () => {
+    dis.textContent += dot.textContent;
+    dot.disabled = true;
+})
+
 op.forEach((element) => {
     element.addEventListener("click", () => {
         dis.textContent += element.textContent;
@@ -53,10 +59,19 @@ op.forEach((element) => {
             element.disabled = true;
         })
         equal.disabled = true;
+        dot.disabled = false;
     })
 });
 
-clear.addEventListener("click", () => { dis.textContent = "0"; console.clear() })
+clear.addEventListener("click", () => {
+    dis.textContent = "0";
+    console.clear();
+    dot.disabled = false;
+    op.forEach((element) => {
+        element.disabled = false;
+    })
+    equal.disabled = false;
+})
 
 equal.addEventListener("click", () => {
     let exp = dis.textContent;
@@ -67,14 +82,15 @@ equal.addEventListener("click", () => {
         operands[operand] = Number(operands[operand]);
     }
     console.log(operands);
-    const operators = exp.replace(/[0-9]/g, "").replace(".", "").split("");
+
+    const operators = exp.replace(/[0-9]/g, "").replace(/[.]/g, "").split("");
     console.log(operators);
     i = 0;
     let result = operands[i];
     i++;
     for (let operator in operators) {
         result = +parseFloat(operate(result, operands[i], operators[operator])).toFixed(3);
-        if(isNaN(result) || !isFinite(result)) {
+        if (isNaN(result) || !isFinite(result)) {
             alert("Divide by zero is not allowed");
             return;
         }
