@@ -38,12 +38,17 @@ const clear = document.querySelector("#clear");
 const dot = document.querySelector('#dot');
 const backspace = document.querySelector('#backspace');
 
+const changeOperatorsState = function (bool) {
+    op.forEach((element) => {
+        element.disabled = bool;
+    })
+}
+
 digit.forEach((element) => {
     element.addEventListener("click", () => {
-        dis.textContent += element.textContent;
-        op.forEach((element) => {
-            element.disabled = false;
-        })
+        if (dis.textContent == "0") dis.textContent = element.textContent;
+        else dis.textContent += element.textContent;
+        changeOperatorsState(false);
         equal.disabled = false;
     })
 });
@@ -56,9 +61,7 @@ dot.addEventListener("click", () => {
 op.forEach((element) => {
     element.addEventListener("click", () => {
         dis.textContent += element.textContent;
-        op.forEach((element) => {
-            element.disabled = true;
-        })
+        changeOperatorsState(true);
         equal.disabled = true;
         dot.disabled = false;
     })
@@ -68,22 +71,17 @@ backspace.addEventListener("click", () => {
     const operators = "-/+*";
     const Dot = ".";
     if (operators.includes(dis.textContent.at(-1))) {
-        op.forEach((element) => {
-            element.disabled = false;
-        })
+        changeOperatorsState(false);
         equal.disabled = false;
     }
     else if (dis.textContent.at(-1) == '.') {
-        console.log(7);
         dot.disabled = false;
     }
 
     dis.textContent = dis.textContent.slice(0, -1);
 
     if (operators.includes(dis.textContent.at(-1))) {
-        op.forEach((element) => {
-            element.disabled = true;
-        })
+        changeOperatorsState(true);
         equal.disabled = true;
         dot.disabled = false;
     } else {
@@ -96,30 +94,29 @@ backspace.addEventListener("click", () => {
             dot.disabled = true;
         }
     }
+
+    if (dis.textContent.length == 0 || dis.textContent.length == 1) dis.textContent = "0";
 })
 
 clear.addEventListener("click", () => {
     dis.textContent = "0";
-    console.clear();
     dot.disabled = false;
     op.forEach((element) => {
         element.disabled = false;
     })
     equal.disabled = false;
+    console.clear();
 })
 
 equal.addEventListener("click", () => {
     let exp = dis.textContent;
-    console.log(exp);
     const operands = exp.split(/[-+/*]/g);
-    console.log(operands);
     for (let operand in operands) {
         operands[operand] = Number(operands[operand]);
     }
-    console.log(operands);
 
     const operators = exp.replace(/[0-9]/g, "").replace(/[.]/g, "").split("");
-    console.log(operators);
+
     i = 0;
     let result = operands[i];
     i++;
@@ -132,5 +129,6 @@ equal.addEventListener("click", () => {
         i++;
         console.log(result);
     }
+
     dis.textContent = result;
 });
