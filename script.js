@@ -74,6 +74,10 @@ equal.addEventListener("click", () => {
     i++;
     for (let operator in operators) {
         result = +parseFloat(operate(result, operands[i], operators[operator])).toFixed(3);
+        if(isNaN(result) || !isFinite(result)) {
+            alert("Divide by zero is not allowed");
+            return;
+        }
         i++;
         console.log(result);
     }
