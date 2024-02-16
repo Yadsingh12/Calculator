@@ -56,22 +56,24 @@ op.forEach((element) => {
     })
 });
 
-clear.addEventListener("click", () => (dis.textContent = "0"))
+clear.addEventListener("click", () => { dis.textContent = "0"; console.clear() })
 
 equal.addEventListener("click", () => {
     let exp = dis.textContent;
-    const operands = exp.split(/[+-/*]+/);
+    console.log(exp);
+    const operands = exp.split(/[-+/*]/g);
+    console.log(operands);
     for (let operand in operands) {
         operands[operand] = Number(operands[operand]);
     }
     console.log(operands);
-    const operators = exp.replace(/[0-9]/g, "").split("");
+    const operators = exp.replace(/[0-9]/g, "").replace(".", "").split("");
     console.log(operators);
     i = 0;
     let result = operands[i];
     i++;
     for (let operator in operators) {
-        result = operate(result, operands[i], operators[operator]);
+        result = +parseFloat(operate(result, operands[i], operators[operator])).toFixed(3);
         i++;
         console.log(result);
     }
