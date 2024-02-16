@@ -16,8 +16,8 @@
     flex-direction: column;
     text-align: center;
     flex: 1 1 100%;
-    margin-left:25%;
-    margin-right: 25%;
+    margin-left:50%;
+    margin-right: 50%;
     border: 25px solid;
     border-color: purple;
 }
@@ -39,6 +39,7 @@ button {
     height: 50px;
     flex: 1 1 auto;
     text-align: center;
+    font-size:xx-large;
 }
 
 #keypad {
