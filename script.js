@@ -44,30 +44,26 @@ const changeOperatorsState = function (bool) {
     })
 }
 
-digit.forEach((element) => {
-    element.addEventListener("click", () => {
-        if (dis.textContent == "0") dis.textContent = element.textContent;
-        else dis.textContent += element.textContent;
-        changeOperatorsState(false);
-        equal.disabled = false;
-    })
-});
-
-dot.addEventListener("click", () => {
+const dotFunction = function () {
     dis.textContent += dot.textContent;
     dot.disabled = true;
-})
+}
 
-op.forEach((element) => {
-    element.addEventListener("click", () => {
-        dis.textContent += element.textContent;
-        changeOperatorsState(true);
-        equal.disabled = true;
-        dot.disabled = false;
-    })
-});
+const operatorFunction = function (operator) {
+    dis.textContent += operator;
+    changeOperatorsState(true);
+    equal.disabled = true;
+    dot.disabled = false;
+}
 
-backspace.addEventListener("click", () => {
+const operandFunction = function (operand) {
+    if (dis.textContent == "0") dis.textContent = operand;
+    else dis.textContent += operand;
+    changeOperatorsState(false);
+    equal.disabled = false;
+}
+
+const backpaceFunction = function () {
     const operators = "-/+*";
     const Dot = ".";
     if (operators.includes(dis.textContent.at(-1))) {
@@ -96,19 +92,9 @@ backspace.addEventListener("click", () => {
     }
 
     if (dis.textContent.length == 0 || dis.textContent.length == 1) dis.textContent = "0";
-})
+}
 
-clear.addEventListener("click", () => {
-    dis.textContent = "0";
-    dot.disabled = false;
-    op.forEach((element) => {
-        element.disabled = false;
-    })
-    equal.disabled = false;
-    console.clear();
-})
-
-equal.addEventListener("click", () => {
+const equalFunction = function () {
     let exp = dis.textContent;
     const operands = exp.split(/[-+/*]/g);
     for (let operand in operands) {
@@ -131,4 +117,28 @@ equal.addEventListener("click", () => {
     }
 
     dis.textContent = result;
+}
+
+digit.forEach((element) => {
+    element.addEventListener("click", () => { operandFunction(element.textContent); });
 });
+
+dot.addEventListener("click", dotFunction());
+
+op.forEach((element) => {
+    element.addEventListener("click", () => { operatorFunction(element.textContent); });
+});
+
+backspace.addEventListener("click", () => {backpaceFunction();});
+
+equal.addEventListener("click", () => {equalFunction();});
+
+clear.addEventListener("click", () => {
+    dis.textContent = "0";
+    dot.disabled = false;
+    op.forEach((element) => {
+        element.disabled = false;
+    })
+    equal.disabled = false;
+    console.clear();
+})
